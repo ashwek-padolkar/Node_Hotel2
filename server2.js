@@ -9,12 +9,12 @@ app.use(bodyParser.json());                   // req.body
 const PORT = process.env.PORT || 3000;
 
 // Middleware function
-// const logRequest = (req, res, next) => {
-//   console.log(`${(new Date().toLocaleString())} Request made to: ${req.originalURL}`)
-//   next();       // Move on the next phase
-// }
+const logRequest = (req, res, next) => {
+  console.log(`${(new Date().toLocaleString())} Request made to: ${req.originalURL}`)
+  next();       // Move on the next phase
+}
 
-app.get('/', function (req, res) {
+app.get('/', logRequest, function (req, res) {
   res.send('Welcome to Our Hotel')
 })
 
