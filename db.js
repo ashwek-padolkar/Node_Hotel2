@@ -3,10 +3,10 @@ require('dotenv').config();
 
 // Define the MongoDB connection URL
 // 1. Online
-const mongoURL = process.env.MONGODB_URL;
+// const mongoURL = process.env.MONGODB_URL;
 
 // 2. Local
-// const mongoURL = process.env.MONGODB_URL_LOCAL;   // set the default mongodb url followed by database name 'hotels'.
+const mongoURL = process.env.MONGODB_URL_LOCAL;   // set the default mongodb url followed by database name 'hotels'.
 
 // Setup MongoDB connection
 mongoose.connect(mongoURL);
