@@ -5,7 +5,7 @@ const MenuItem = require('../models/MenuItem');
 // POST method to send the MenuItem data
 router.post('/', async (req, res) => {
   try {
-    const data = req.body;   // Assuming the request body contains the person data.
+    const data = req.body;   // Assuming the request body contains the menu data.
 
     // Create a new MenuItem document using the Mongoose model.
     const newMenu = new MenuItem(data);
