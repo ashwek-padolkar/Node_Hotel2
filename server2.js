@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const db = require('./db');
 require('dotenv').config();
+const passport = require('../4. NodeJS Authentication/auth');
 
 // Middleware to parse JSON bodies
 const bodyParser = require('body-parser');
@@ -15,6 +16,13 @@ const logRequest = (req, res, next) => {
 }
 
 app.use(logRequest);
+
+
+// Use passport
+app.use(passport.initialize());
+
+const localAuthMiddleware = passport.authenticate('local', {session: false});
+
 app.get('/', function (req, res) {
   res.send('Welcome to Our Hotel')
 })
@@ -24,7 +32,7 @@ app.get('/', function (req, res) {
 const personRoutes = require('./routes/personRoutes');
 
 // Use the router
-app.use('/person', personRoutes);
+app.use('/person', localAuthMiddleware, personRoutes);
 
 
 // 2. Menu Router
