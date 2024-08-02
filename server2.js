@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const db = require('./db');
 require('dotenv').config();
-const passport = require('../4. NodeJS Authentication/auth');
+const passport = require('./auth');
 
 // Middleware to parse JSON bodies
 const bodyParser = require('body-parser');
