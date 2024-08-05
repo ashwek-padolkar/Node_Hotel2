@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
 const personRoutes = require('./routes/personRoutes');
 
 // Use the router
-app.use('/person', localAuthMiddleware, personRoutes);
+app.use('/person', personRoutes);
 
 
 // 2. Menu Router
