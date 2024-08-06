@@ -21,7 +21,7 @@ passport.use(new localStrategy(async (USERNAME, PASSWORD, done) => {
       return done(null, user);
     }
     else {
-      return done(null, false, {message: "Incorrect  username."})
+      return done(null, false, {message: "Incorrect  password."})
     }
   }
   catch(err) {
