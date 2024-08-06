@@ -7,6 +7,7 @@ const passport = require('./auth');
 // Middleware to parse JSON bodies
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());                   // req.body
+
 const PORT = process.env.PORT || 3000;
 
 // Middleware function
