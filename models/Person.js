@@ -1,51 +1,51 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // Define the Person schema
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   age: {
-    type: Number
+    type: Number,
   },
   work: {
     type: String,
-    enum: ['chef', 'waiter', 'manager'],
-    required: true
+    enum: ["chef", "waiter", "manager"],
+    required: true,
   },
   mobile: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   address: {
-    type: String
+    type: String,
   },
   salary: {
     type: Number,
-    required: true
+    required: true,
   },
   username: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
-    type:String,
-    required: true
-  }
+    type: String,
+    required: true,
+  },
 });
 
-personSchema.pre('save', async function(next) {
+personSchema.pre("save", async function (next) {
   const person = this;
 
   // Hash the password only if it has been modified (or is new).
-  if(!person.isModified('password')) {
+  if (!person.isModified("password")) {
     return next();
   }
 
@@ -60,31 +60,30 @@ personSchema.pre('save', async function(next) {
     person.password = hashedPassword;
 
     next();
-  }
-  catch(err) {
+  } catch (err) {
     return next(err);
   }
-})
+});
 
-personSchema.methods.comparePassword = async function(candidatePassword) {
-  try{
+personSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
     // Use bcrypt to compare the provided password with the hashed password.
     const isMatch = await bcrypt.compare(candidatePassword, this.password);
 
     return isMatch;
-  }
-  catch(err) {
+  } catch (err) {
     throw err;
   }
-}
+};
 
 // How hashing works?
-// ashwek -----> sjdkvnlvdlklkdsklmklsdv
-// login  -----> padolkar
+// ashwek -----> ashwek + salt = sjdkvnlvdlklkdsklmklsdv (hashed)
+// if user login as  -----> padolkar
 
 // sjdkvnlvdlklkdsklmklsdv -----> extract salt
 // salt + padolkar -----> hash -----> dsjfakjhdjhdaskjhjb
+// if sjdkvnlvdlklkdsklmklsdv == dsjfakjhdjhdaskjhjb ? true : false
 
 // Create Person model
-const Person = mongoose.model('Person', personSchema);
+const Person = mongoose.model("Person", personSchema);
 module.exports = Person;

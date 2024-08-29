@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// 1. jwtAuthMiddleware for Login
 // JWT Authenticated Middleware: Wherever you want to apply authentication to the particular route then use this middleware on that route.
 // In short, to make a particular route protected/authenticated, apply this middleware to that route so that, it will require the token to access that route.
 const jwtAuthMiddleware = (req, res, next) => {
@@ -18,7 +19,8 @@ const jwtAuthMiddleware = (req, res, next) => {
   }
 
   try {
-    // Verify the  JWT token
+    // verify() to verify that token in valid and not expired.
+    // decoded variable stores the payload of the jwt token, which contains the user's information.
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     // Attach user information to the request object
@@ -30,6 +32,7 @@ const jwtAuthMiddleware = (req, res, next) => {
   }
 };
 
+// 2. generateToken for Signup
 // Function to generate JWT token
 const generateToken = (userData) => {
   // Generate a new token using user data
